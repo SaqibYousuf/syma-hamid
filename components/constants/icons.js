@@ -276,3 +276,21 @@ export const TherapyIcon = () => {
     </svg>
   );
 };
+
+export const StarIcon = () => {
+  return (
+    <svg
+      width="44"
+      height="44"
+      viewBox="0 0 44 44"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M22 0L23.6838 17.9349L37.5564 6.44365L26.0651 20.3162L44 22L26.0651 23.6838L37.5564 37.5564L23.6838 26.0651L22 44L20.3162 26.0651L6.44365 37.5564L17.9349 23.6838L0 22L17.9349 20.3162L6.44365 6.44365L20.3162 17.9349L22 0Z"
+        fill="#A67539"
+      />
+      <circle cx="22.0002" cy="22" r="1.24528" fill="white" />
+    </svg>
+  );
+};

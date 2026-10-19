@@ -2,6 +2,7 @@ import { Cormorant_Garamond, Urbanist } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/constants/navbar";
+import Footer from "../components/constants/footer";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -116,7 +117,8 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         <Navbar />
         {children}
-        </body>
+        <Footer />
+      </body>
     </html>
   );
 }
