@@ -1,29 +1,41 @@
-import Image from 'next/image'
-import React from 'react'
-import { StarIcon } from '../constants/icons'
-import { ArrowRight } from 'lucide-react'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { StarIcon } from "../constants/icons";
+import { ArrowRight } from "lucide-react";
+import { BOOKING_HREF } from "../constants/site-links";
+
+const goldLine =
+  "h-[1px] w-[90px] border-[0.68px] border-solid [border-image-source:linear-gradient(90deg,#A67539_27.53%,rgba(166,117,57,0.2)_63.76%,rgba(166,117,57,0.5)_100%)] [border-image-slice:1] sm:w-[150px]";
 
 function Hero() {
-    return (
-        <div className='flex flex-col items-center justify-center  relative w-full aspect-[1920/768]'>
-            <Image fill src="/images/alchemy-bg.png" alt="Hero Image" className='w-full h-full' />
-            <div className="max-w-[752px] relative w-full py-6 flex items-start flex-col gap-[22px]">
-                <p className='font-avenir uppercase font-medium text-[22px] leading-[100%] tracking-[3px] text-[#1C2E22] text-[#1C2E22]'>the signature experience</p>
-                <h1 className='font-cormorant uppercase font-semibold text-[94px] leading-[84px] tracking-[0] text-[#1C2E22]'>inner alchemy
-                    sessions</h1>
-                <p className='font-cormorant font-medium italic text-[48px] leading-[55px] tracking-[0] text-[#1C2E22]'>Real change
-                    begin within</p>
-                <div className="flex items-center gap-5">
-                    <div className="h-[1px] w-[150px] border-[0.68px] border-solid [border-image-source:linear-gradient(90deg,#A67539_27.53%,rgba(166,117,57,0.2)_63.76%,rgba(166,117,57,0.5)_100%)] [border-image-slice:1] " />
-                    <StarIcon />
-                    <div className="h-[1px] w-[150px] border-[0.68px] border-solid [border-image-source:linear-gradient(90deg,#A67539_27.53%,rgba(166,117,57,0.2)_63.76%,rgba(166,117,57,0.5)_100%)] [border-image-slice:1] " />
-                </div>
-                <p className='font-avenir font-normal text-[25px] leading-[36px] tracking-[0px] text-[#1C2E22]'>Psychological support, powerful tools and a compassionate space to help you understand yourself, break unhelpful patterns and create a more fulfilling life.</p>
-                <button className='font-cormorant font-semibold text-lg leading-[32px] tracking-[0px] bg-[#223329] rounded-2xl text-white flex items-center justify-center gap-[10px] px-6 py-3 capitalize'>Begin your inner alchemy <ArrowRight /></button>
-
-            </div>
+  return (
+    <section className="relative flex min-h-[640px] w-full flex-col items-center justify-center px-4 py-14 md:px-6 lg:min-h-[600px] xl:min-h-[40vw] xl:py-10">
+      <Image fill priority src="/images/alchemy-bg.png" alt="" sizes="100vw" className="object-cover object-[30%_center] xl:object-center" />
+      <div className="absolute inset-0 bg-[#FBF8F3]/55 lg:hidden" />
+      <div className="relative flex w-full max-w-[752px] flex-col items-start gap-4 py-6 sm:gap-[22px] lg:mr-[22%] lg:max-w-[600px] xl:mr-0 xl:max-w-[752px]">
+        <p className="font-avenir text-sm font-medium uppercase leading-[100%] tracking-[2px] text-[#1C2E22] sm:text-lg sm:tracking-[3px] xl:text-[22px]">the signature experience</p>
+        <h1 className="font-cormorant text-[48px] font-semibold uppercase leading-[0.95] text-[#1C2E22] sm:text-[64px] lg:text-[76px] xl:text-[94px] xl:leading-[84px]">
+          inner alchemy sessions
+        </h1>
+        <p className="font-cormorant text-[32px] font-medium italic leading-[1.15] text-[#1C2E22] sm:text-[40px] xl:text-[48px] xl:leading-[55px]">Real change begins within</p>
+        <div className="flex items-center gap-4 sm:gap-5">
+          <div className={goldLine} />
+          <StarIcon />
+          <div className={goldLine} />
         </div>
-    )
+        <p className="font-avenir text-base font-normal leading-[1.55] text-[#1C2E22] sm:text-xl xl:text-[25px] xl:leading-[36px]">
+          Psychological support, powerful tools and a compassionate space to help you understand yourself, break unhelpful patterns and create a more fulfilling life.
+        </p>
+        <Link
+          href={BOOKING_HREF}
+          className="flex items-center justify-center gap-[10px] rounded-2xl bg-[#223329] px-6 py-3 font-cormorant text-lg font-semibold capitalize leading-[32px] text-white transition-colors hover:bg-[#1C2E22]"
+        >
+          Begin your inner alchemy <ArrowRight />
+        </Link>
+      </div>
+    </section>
+  );
 }
 
-export default Hero
+export default Hero;

@@ -1,6 +1,6 @@
 
 import Image from "next/image";
-import Container from "@//components/constants/container";
+import Container from "@/components/constants/container";
 
 
 export default function AssessmentHero() {
