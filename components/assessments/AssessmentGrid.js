@@ -1,76 +1,30 @@
 "use client";
 
-import Container from "@//components/constants/container";
+import { useEffect, useState } from "react";
+import Container from "@/components/constants/container";
 import AssessmentCard from "@/components/assessments/AssessmentCard";
 import AssessmentModal from "@/components/assessments/AssessmentModal";
-import { useState } from "react";
 
-
-const assessments = [
-  {
-    id: "01",
-    title: "What Is Really Hurting You in Your Relationships?",
-    description:
-      "Discover the emotional patterns beneath relationship pain.",
-    questions: 12,
-    duration: "5 Minutes",
-    image: "/images/assessment/assessment-1.png",
-  },
-  {
-    id: "02",
-    title: "What Kind of Grief Are You Carrying?",
-    description:
-      "Explore the losses that may still be asking for peace.",
-    questions: 10,
-    duration: "3 Minutes",
-    image: "/images/assessment/assessment-2.png",
-  },
-  {
-    id: "03",
-    title: "Are You Losing Yourself in Your Relationship?",
-    description:
-      "Notice where connection may be coming at the cost of self.",
-    questions: 10,
-    duration: "3 Minutes",
-    image: "/images/assessment/assessment-3.png",
-  },
-  {
-    id: "04",
-    title: "How Do You Respond When You Feel Hurt?",
-    description:
-      "Understand your instinctive response to emotional pain.",
-    questions: 10,
-    duration: "3 Minutes",
-    image: "/images/assessment/assessment-4.png",
-  },
-  {
-    id: "05",
-    title: "Are You Ready for Change?",
-    description:
-      "Explore where you are in your readiness for personal change.",
-    questions: 10,
-    duration: "3 Minutes",
-    image: "/images/assessment/assessment-5.png",
-  },
-  {
-    id: "06",
-    title: "Identify Your Pattern",
-    description:
-      "Recognize the thoughts, emotions and behaviors that may keep repeating.",
-    questions: 12,
-    duration: "4 Minutes",
-    image: "/images/assessment/assessment-6.png",
-  },
-];
-
-
-
-export default function AssessmentGrid() {
+export default function AssessmentGrid({ assessments = [], loadError = false, initialOpen = null }) {
+  const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
-  const handleBeginReflection = (assessmentId) => {
+
+  // Support links like /assessments?open=identify-your-pattern
+  useEffect(() => {
+    if (!initialOpen) return;
+    const match = assessments.find((a) => a.slug === initialOpen || String(a.id) === initialOpen);
+    if (match && match.question_count > 0) {
+      setSelected(match);
+      setOpen(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialOpen]);
+
+  const handleBeginReflection = (assessment) => {
+    setSelected(assessment);
     setOpen(true);
-    console.log(`Begin reflection for assessment ID: ${assessmentId}`);
-  }
+  };
+
   return (
     <section className="bg-[#f5efe2] py-7 sm:py-8 md:py-9">
       <Container>
@@ -78,19 +32,26 @@ export default function AssessmentGrid() {
           Choose an assessment
         </h2>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-2.5">
-          {assessments.map((assessment) => (
-            <AssessmentCard
-              key={assessment.id}
-              assessment={assessment}
-              handleClick={handleBeginReflection}
-            />
-          ))}
-        </div>
+        {loadError ? (
+          <p className="mx-auto max-w-md text-center font-avenir text-base text-[#465149]">
+            Assessments could not be loaded right now. Please refresh the page or try again in a few minutes.
+          </p>
+        ) : assessments.length === 0 ? (
+          <p className="mx-auto max-w-md text-center font-avenir text-base text-[#465149]">New assessments are coming soon.</p>
+        ) : (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-2.5">
+            {assessments.map((assessment, index) => (
+              <AssessmentCard
+                key={assessment.id}
+                number={String(index + 1).padStart(2, "0")}
+                assessment={assessment}
+                handleClick={handleBeginReflection}
+              />
+            ))}
+          </div>
+        )}
       </Container>
-      <AssessmentModal
-        open={open} onOpenChange={setOpen}
-      />
+      <AssessmentModal open={open} onOpenChange={setOpen} assessment={selected} />
     </section>
   );
 }

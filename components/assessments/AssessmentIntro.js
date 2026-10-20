@@ -13,7 +13,10 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-export default function AssessmentIntro({ onBegin, onBack }) {
+export default function AssessmentIntro({ assessment, onBegin, onBack }) {
+    const total = assessment.questions.length;
+    const textCount = assessment.questions.filter((q) => q.type === "text").length;
+    const scored = total - textCount;
     return (
         <div className="relative flex min-h-full flex-col bg-[#141210]">
             <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
@@ -30,33 +33,31 @@ export default function AssessmentIntro({ onBegin, onBack }) {
             <div className="relative z-10 flex flex-col px-4 py-5 sm:px-8 sm:py-8 md:px-10 md:py-9 lg:px-12 lg:py-10">
                 {/* Header navigation */}
                 <div className="mb-6 flex w-full items-center justify-between text-sm font-light text-[#C2BDB5] sm:mb-9">
-                    <Button variant="ghost" onClick={onBack}>
+                    <Button variant="ghost" onClick={onBack} className="cursor-pointer hover:bg-white/10 hover:text-white">
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Back
                     </Button>
 
-                    <DialogClose asChild>
-                        <Button variant="ghost">
-                            <X className="h-4 w-4" />
-                            <span className="sr-only">Close</span>
-                        </Button>
+                    <DialogClose
+                        render={<Button variant="ghost" className="cursor-pointer hover:bg-white/10 hover:text-white" />}
+                    >
+                        <X className="h-4 w-4" />
+                        <span className="sr-only">Close</span>
                     </DialogClose>
                 </div>
 
                 {/* Title and description */}
                 <div className="mx-auto mb-7 w-full max-w-145 text-center sm:mb-10">
-                    <span className="block font-avenir text-xs font-medium uppercase leading-relaxed tracking-[1.5px] text-[#FAF6EF]s sm:text-sm sm:tracking-[2px] md:text-[16.99px] md:tracking-[2.32px]">
+                    <span className="block font-avenir text-xs font-medium uppercase leading-relaxed tracking-[1.5px] text-[#FAF6EF] sm:text-sm sm:tracking-[2px] md:text-[16.99px] md:tracking-[2.32px]">
                         Assessment
                     </span>
 
-                    <h2 className="mb-4 font-cormorant text-[clamp(2rem,7vw,57.93px)] font-semibold leading-[1.12] tracking-normal text-[#FAF6EF]">
-                        Identify Your Pattern
+                    <h2 className="mb-4 font-cormorant text-[clamp(1.75rem,6vw,57.93px)] font-semibold leading-[1.12] tracking-normal text-[#FAF6EF]">
+                        {assessment.title}
                     </h2>
 
-                    <p className="mx-auto max-w-130 font-avenir text-sm font-normal leading-relaxed tracking-normal text-[#FAF6EF] sm:text-base sm:leading-[1.6] md:text-[21.63px] md:leading-[30.9px]">
-                        What keeps repeating may be trying to tell you something.
-                        This reflection helps you notice the thoughts, emotions and
-                        behaviours that may sit beneath recurring experiences.
+                    <p className="mx-auto max-w-130 whitespace-pre-line font-avenir text-sm font-normal leading-relaxed tracking-normal text-[#FAF6EF] sm:text-base sm:leading-[1.6] md:text-[21.63px] md:leading-[30.9px]">
+                        {assessment.intro_text || assessment.description}
                     </p>
                 </div>
 
@@ -70,12 +71,14 @@ export default function AssessmentIntro({ onBegin, onBack }) {
                         />
 
                         <span className="text-[10px] font-medium leading-snug text-[#F2EFE9] sm:text-sm">
-                            12 Questions
+                            {total} {total === 1 ? "Question" : "Questions"}
                         </span>
 
-                        <span className="mt-1 text-[8px] leading-relaxed text-[#9E978B] sm:text-[11px]">
-                            (11 scored + 1 reflection)
-                        </span>
+                        {textCount > 0 && scored > 0 && (
+                            <span className="mt-1 text-[8px] leading-relaxed text-[#9E978B] sm:text-[11px]">
+                                ({scored} scored + {textCount} reflection)
+                            </span>
+                        )}
                     </div>
 
                     <div className="flex min-w-0 flex-col items-center justify-center border-x border-white/10 px-1 sm:px-3">
@@ -86,7 +89,7 @@ export default function AssessmentIntro({ onBegin, onBack }) {
                         />
 
                         <span className="text-[10px] font-medium leading-snug text-[#F2EFE9] sm:text-sm">
-                            5–7 Minutes
+                            {assessment.duration || "A few minutes"}
                         </span>
                     </div>
 
