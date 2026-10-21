@@ -1,6 +1,8 @@
 import { Cormorant_Garamond, Urbanist } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "../components/constants/navbar";
+import Footer from "../components/constants/footer";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -121,7 +123,11 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${cormorantGaramond.variable} ${urbanist.variable} ${avenirNextW1G.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Navbar />
+        <div className="flex-1 overflow-x-clip">{children}</div>
+        <Footer />
+      </body>
     </html>
   );
 }

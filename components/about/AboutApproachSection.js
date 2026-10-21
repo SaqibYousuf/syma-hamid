@@ -16,7 +16,7 @@ export default function AboutApproachSection() {
         />
 
         {/* Overlay for text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+       
       </div>
 
       {/* Left-aligned text */}

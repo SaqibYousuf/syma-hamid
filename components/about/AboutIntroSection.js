@@ -18,7 +18,7 @@ export default function AboutIntroSection() {
         />
 
         {/* Overlay for text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+       
       </div>
 
       {/* Right 50% content, vertically centered */}

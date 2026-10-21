@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export default function AppointmentCTA() {
   return (
-    <section className="relative mb-10 w-full overflow-hidden sm:mb-14">
+    <section className="relative w-full overflow-hidden">
       {/* Full-width background image */}
       <div className="absolute inset-0">
         <Image
@@ -18,6 +18,7 @@ export default function AppointmentCTA() {
 
       {/* Centered content */}
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-5 px-5 py-12 sm:px-8 sm:py-14 md:flex-row md:items-center lg:px-16 lg:py-24">
+      {/* <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-start justify-between gap-5 px-5 py-12 sm:px-8 sm:py-14 md:flex-row md:items-center lg:px-16 lg:py-24"> */}
         <div className="max-w-xl text-[#1C2E22]">
           <span className="mb-2 block font-avenir text-xs font-medium uppercase tracking-[0.2em]">
             Appointments
