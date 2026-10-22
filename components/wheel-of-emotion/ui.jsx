@@ -10,7 +10,7 @@ export function ModalHeader({ onBack, onClose, backTone = "dark" }) {
         type="button"
         onClick={onBack}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-sm font-serif text-[15px] outline-none transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-[#C9A46A]",
+          "cursor-pointer inline-flex items-center gap-1.5 rounded-sm font-serif text-[15px] outline-none transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-[#C9A46A]",
           backTone === "light" ? "text-[#F4EFE6]" : "text-[#2B2F2A]",
         )}
       >
@@ -20,7 +20,7 @@ export function ModalHeader({ onBack, onClose, backTone = "dark" }) {
       <button
         type="button"
         onClick={onClose}
-        className="inline-flex items-center gap-1.5 rounded-sm font-serif text-[15px] text-[#2B2F2A] outline-none transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-[#C9A46A]"
+        className="cursor-pointer inline-flex items-center gap-1.5 rounded-sm font-serif text-[15px] text-[#2B2F2A] outline-none transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-[#C9A46A]"
       >
         <X className="size-3.5" strokeWidth={1.75} />
         Close

@@ -36,7 +36,7 @@ function WheelEmotionHeader() {
             </Button> */}
             <EmotionalWheelModal
               trigger={<div
-                className="flex cursor-pointer rounded-[14.51px] bg-[#223329] px-8 py-6 font-avenir text-sm font-medium text-white"
+                className="flex cursor-pointer rounded-[14.51px] bg-[#223329] px-8 py-4 font-avenir text-sm font-medium text-white"
               >
                 Begin your journey <ArrowRight />
               </div>}

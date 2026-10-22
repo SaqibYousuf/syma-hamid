@@ -1,0 +1,55 @@
+// Replace banners and details with your own. Banner images should be 2:3 portrait (e.g. 853x1280).
+export const workshops = [
+    {
+        slug: "sorrow-and-disappointment-in-relationships",
+        series: "Inner Flow Series",
+        title: "Understanding why we experience sorrow and disappointments in relationships",
+        host: "Dr. Syma Hamid",
+        hostRole: "Psychologist & Cognitive Reframe Expert",
+        banner: "/images/workshops/inner-flow-relationships.jpeg",
+        dateLabel: "Sunday, 11 October 2025",
+        time: "3:30 pm to 5:30 pm",
+        duration: "2 hours",
+        location: "House 14, Street 68, F-8/3, Islamabad",
+        city: "Islamabad",
+        price: 8000,
+        seatsLeft: 12,
+        contact: { name: "Muhjah Khan", phones: ["0317 7758489", "0339 5166216"] },
+    },
+    {
+        slug: "finding-calm-in-anxious-times",
+        series: "Inner Flow Series",
+        title: "Understanding why we experience sorrow and disappointments in relationships",
+        host: "Dr. Syma Hamid",
+        hostRole: "Psychologist & Cognitive Reframe Expert",
+        banner: "/images/workshops/inner-flow-relationships.jpeg",
+        dateLabel: "Sunday, 11 October 2025",
+        time: "3:30 pm to 5:30 pm",
+        duration: "2 hours",
+        location: "House 14, Street 68, F-8/3, Islamabad",
+        city: "Islamabad",
+        price: 8000,
+        seatsLeft: 12,
+        contact: { name: "Muhjah Khan", phones: ["0317 7758489", "0339 5166216"] },
+    },
+    {
+        slug: "a-kinder-you",
+        series: "Inner Flow Series",
+        title: "Understanding why we experience sorrow and disappointments in relationships",
+        host: "Dr. Syma Hamid",
+        hostRole: "Psychologist & Cognitive Reframe Expert",
+        banner: "/images/workshops/inner-flow-relationships.jpeg",
+        dateLabel: "Sunday, 11 October 2025",
+        time: "3:30 pm to 5:30 pm",
+        duration: "2 hours",
+        location: "House 14, Street 68, F-8/3, Islamabad",
+        city: "Islamabad",
+        price: 8000,
+        seatsLeft: 0,
+        contact: { name: "Muhjah Khan", phones: ["0317 7758489", "0339 5166216"] },
+    },
+];
+
+export const getWorkshop = (slug) => workshops.find((w) => w.slug === slug) ?? null;
+
+export const formatPrice = (amount) => `Rs ${amount.toLocaleString("en-PK")}`;

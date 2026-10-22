@@ -55,7 +55,7 @@ export default function CredentialsSection() {
       <div className="mx-auto w-full max-w-6xl px-5 py-12 sm:px-6 sm:py-16">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
           <CredentialCard icon={GraduationCap} title="Qualifications">
-            <div className="my-auto space-y-5">
+            <div className="space-y-5">
               {qualifications.map((item, idx) => (
                 <CredentialItem
                   key={item.title}
@@ -67,7 +67,7 @@ export default function CredentialsSection() {
           </CredentialCard>
 
           <CredentialCard icon={Award} title="Professional Memberships">
-            <div className="my-auto space-y-6">
+            <div className="space-y-6">
               {memberships.map((item, idx) => (
                 <CredentialItem
                   key={item.subtitle}
@@ -79,7 +79,7 @@ export default function CredentialsSection() {
           </CredentialCard>
 
           <CredentialCard icon={ScrollText} title="Certifications">
-            <div className="my-auto space-y-3.5">
+            <div className="space-y-3.5">
               {certifications.map((item) => (
                 <div key={item} className="flex items-start gap-2.5">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#7C7263]" />

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative mx-auto flex min-h-160 w-full max-w-6xl flex-col justify-between overflow-hidden p-6 text-[#1C2E22] shadow-2xl sm:p-12">
+    <section className="relative mx-auto flex min-h-160 w-full flex-col justify-between overflow-hidden p-6 text-[#1C2E22] shadow-2xl sm:p-12">
       {/* Shared background image */}
       <div className="pointer-events-none absolute inset-0">
         <Image
@@ -18,8 +18,6 @@ export default function TestimonialsSection() {
           className="object-cover object-center"
         />
 
-        {/* Warm overlay across the entire section */}
-        <div className="absolute inset-0 bg-linear-to-b from-[#F5EFE6]/60 via-[#F5EFE6]/30 to-[#F5EFE6]/70" />
       </div>
 
       {/* Section content */}
