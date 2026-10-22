@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ClipboardList, ExternalLink, LayoutDashboard, LogOut, Menu, Users, X } from "lucide-react";
+import { ClipboardList, ExternalLink, LayoutDashboard, LogOut, Menu, ShoppingCart, Users, X, BookOpen } from "lucide-react";
 import { cx } from "./ui";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/assessments", label: "Assessments", icon: ClipboardList },
   { href: "/admin/results", label: "Results", icon: Users },
+  { href: "/admin/workshops", label: "Workshops", icon: BookOpen },
+  { href: "/admin/orders", label: "Workshop Orders", icon: ShoppingCart },
 ];
 
 export default function AdminShell({ username, children }) {

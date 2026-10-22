@@ -14,6 +14,7 @@ function isActive(pathname, href) {
 function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const isAdmin = pathname === "/admin" || pathname?.startsWith("/admin/");
 
   // Close the mobile menu on navigation
   useEffect(() => setOpen(false), [pathname]);
@@ -30,6 +31,9 @@ function Navbar() {
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
+
+  // The admin panel has its own sidebar — no site navbar there
+  if (isAdmin) return null;
 
   return (
     <header className="sticky top-0 z-40 bg-[#FBF8F3]/95 backdrop-blur supports-[backdrop-filter]:bg-[#FBF8F3]/85">

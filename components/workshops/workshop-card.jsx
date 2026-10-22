@@ -1,4 +1,4 @@
-import Image from "next/image";
+import SmartImage from "@/components/constants/smart-image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays } from "lucide-react";
 
@@ -13,7 +13,7 @@ export function WorkshopCard({ workshop: w }) {
     <>
       {/* Banner carries the details. Fixed 2:3 ratio keeps every card the same size */}
       <div className="relative aspect-2/3 overflow-hidden rounded-xl bg-[#EEE9DF]">
-        <Image
+        <SmartImage
           src={w.banner}
           alt={`${w.series}: ${w.title}`}
           fill

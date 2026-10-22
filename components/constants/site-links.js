@@ -4,6 +4,7 @@ export const NAV_LINKS = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Inner Alchemy", href: "/inner-alchemy" },
+  { name: "Workshops", href: "/workshops" },
   { name: "Assessments", href: "/assessments" },
   { name: "Wheel of Emotions", href: "/wheel-of-emotions" },
   { name: "Blog", href: "/blog" },

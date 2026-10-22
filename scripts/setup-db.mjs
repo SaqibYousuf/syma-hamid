@@ -124,6 +124,16 @@ async function main() {
     }
   }
 
+  // 5) Dummy workshops (only if there are none yet)
+  const [[{ workshopCount }]] = await db.query("SELECT COUNT(*) AS workshopCount FROM workshops");
+  if (workshopCount > 0) {
+    console.log(`• ${workshopCount} workshop(s) already exist — dummy workshops skipped`);
+  } else {
+    const sql = fs.readFileSync(path.join(root, "database", "workshops.sql"), "utf8");
+    await db.query(sql.slice(sql.indexOf("INSERT IGNORE INTO workshops")));
+    console.log("✓ Added dummy workshops");
+  }
+
   await db.end();
   console.log("Done.");
 }
