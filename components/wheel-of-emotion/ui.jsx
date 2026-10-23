@@ -80,7 +80,7 @@ export function OptionPill({ label, selected, onClick }) {
   return (
     <button
       type="button"
-      role="radio"
+      role="checkbox"
       aria-checked={selected}
       onClick={onClick}
       className={cn(
@@ -92,11 +92,15 @@ export function OptionPill({ label, selected, onClick }) {
     >
       <span
         className={cn(
-          "flex size-3.5 shrink-0 items-center justify-center rounded-full border transition-colors",
-          selected ? "border-[#1F2E25]" : "border-[#BFB29C]",
+          "flex size-3.5 shrink-0 items-center justify-center rounded-[4px] border transition-colors",
+          selected ? "border-[#1F2E25] bg-[#1F2E25]" : "border-[#BFB29C] bg-transparent",
         )}
       >
-        {selected && <span className="size-1.5 rounded-full bg-[#1F2E25]" />}
+        {selected && (
+          <svg className="size-2.5 text-white" viewBox="0 0 10 10" fill="none" aria-hidden>
+            <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        )}
       </span>
       {label}
     </button>

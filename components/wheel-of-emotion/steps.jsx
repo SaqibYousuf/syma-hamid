@@ -1,6 +1,7 @@
 import { ArrowRight, Bookmark, Flower2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { EMOTIONS, EW_IMAGES, NEEDS } from "./data";
+import { EW_IMAGES } from "./data";
+import { getWheelIcon } from "./icons";
 import { EmotionWheel } from "./emotion-wheel";
 import {
   Eyebrow,
@@ -23,7 +24,7 @@ function NextButton({ disabled, onClick }) {
 }
 
 /* Step 01: The emotional wheel ---------------------------------------- */
-export function StepChooseEmotion({ selectedId, onSelect }) {
+export function StepChooseEmotion({ emotions, quote, selectedId, onSelect }) {
   return (
     <div className="relative z-10 flex min-h-0 flex-1">
       <div className="flex min-w-0 flex-1 flex-col overflow-y-auto px-6 pb-6 sm:px-10">
@@ -34,18 +35,18 @@ export function StepChooseEmotion({ selectedId, onSelect }) {
           more.
         </p>
         <div className="flex flex-1 items-center justify-center py-4">
-          <EmotionWheel emotions={EMOTIONS} selectedId={selectedId} onSelect={onSelect} />
+          <EmotionWheel emotions={emotions} selectedId={selectedId} onSelect={onSelect} />
         </div>
       </div>
 
       <div className="mb-6 hidden w-px shrink-0 bg-[#DCD1BE] md:block" aria-hidden />
 
       <aside className="relative mb-6 ml-4 mr-6 hidden w-[270px] shrink-0 flex-col items-center overflow-hidden rounded-md bg-[#EDE6D8] px-6 pt-12 md:flex">
-        <blockquote className="text-center font-serif text-[19px] italic leading-snug text-[#2B2F2A]">
-          &ldquo;Emotions are not the enemy;
-          <br />
-          they are information.&rdquo;
-        </blockquote>
+        {quote && (
+          <blockquote className="text-center font-serif text-[19px] italic leading-snug text-[#2B2F2A]">
+            &ldquo;{quote}&rdquo;
+          </blockquote>
+        )}
         <GoldDivider className="mt-6" />
         <img
           src={EW_IMAGES.botanical}
@@ -59,9 +60,9 @@ export function StepChooseEmotion({ selectedId, onSelect }) {
 }
 
 /* Step 02: Pick a feeling --------------------------------------------- */
-export function StepChooseFeeling({ emotion, selectedId, onSelect, onNext }) {
+export function StepChooseFeeling({ emotion, selectedIds, onToggle, onNext }) {
   return (
-    <StepBody footer={<NextButton disabled={!selectedId} onClick={onNext} />}>
+    <StepBody footer={<NextButton disabled={selectedIds.length === 0} onClick={onNext} />}>
       <Title className="mt-3">{emotion.label}</Title>
       <Subtitle>{emotion.description}</Subtitle>
 
@@ -69,7 +70,7 @@ export function StepChooseFeeling({ emotion, selectedId, onSelect, onNext }) {
         {emotion.prompt ?? "Explore what feels closest to you:"}
       </p>
       <div
-        role="radiogroup"
+        role="group"
         aria-label={`${emotion.label} feelings`}
         className="mt-3 grid grid-cols-1 gap-x-4 gap-y-2.5 sm:grid-cols-2"
       >
@@ -77,8 +78,8 @@ export function StepChooseFeeling({ emotion, selectedId, onSelect, onNext }) {
           <OptionPill
             key={f.id}
             label={f.label}
-            selected={selectedId === f.id}
-            onClick={() => onSelect(f.id)}
+            selected={selectedIds.includes(f.id)}
+            onClick={() => onToggle(f.id)}
           />
         ))}
       </div>
@@ -87,16 +88,16 @@ export function StepChooseFeeling({ emotion, selectedId, onSelect, onNext }) {
 }
 
 /* Step 03: What feels most true --------------------------------------- */
-export function StepChooseStatement({ feeling, statements, selected, onSelect, onNext }) {
+export function StepChooseStatement({ feeling, statements, selected, onToggle, onNext }) {
   return (
-    <StepBody footer={<NextButton disabled={!selected} onClick={onNext} />}>
+    <StepBody footer={<NextButton disabled={selected.length === 0} onClick={onNext} />}>
       <Title className="mt-3">{feeling.label}</Title>
       <Subtitle className="font-semibold">
         What feels most true for you right now?
       </Subtitle>
 
       <div
-        role="radiogroup"
+        role="group"
         aria-label="What feels most true"
         className="mt-5 grid grid-cols-1 gap-x-4 gap-y-2.5 sm:grid-cols-2"
       >
@@ -104,8 +105,8 @@ export function StepChooseStatement({ feeling, statements, selected, onSelect, o
           <OptionPill
             key={s}
             label={s}
-            selected={selected === s}
-            onClick={() => onSelect(s)}
+            selected={selected.includes(s)}
+            onClick={() => onToggle(s)}
           />
         ))}
       </div>
@@ -114,9 +115,10 @@ export function StepChooseStatement({ feeling, statements, selected, onSelect, o
 }
 
 /* Step 04: Insight + what might be underneath ------------------------- */
-export function StepInsight({ heading, insight, selectedNeed, onSelectNeed, onNext }) {
+export function StepInsight({ heading, insight, needs, selectedNeedIds, onToggleNeed, onNext }) {
+  const hasNeeds = needs.length > 0;
   return (
-    <StepBody footer={<NextButton disabled={!selectedNeed} onClick={onNext} />}>
+    <StepBody footer={<NextButton disabled={hasNeeds && selectedNeedIds.length === 0} onClick={onNext} />}>
       <h2 className="mt-3 max-w-[480px] font-serif text-[30px] font-normal leading-[1.15] text-[#1F2A24] sm:text-[34px]">
         {heading}
       </h2>
@@ -124,26 +126,28 @@ export function StepInsight({ heading, insight, selectedNeed, onSelectNeed, onNe
         {insight}
       </p>
 
+      {hasNeeds && (
+      <>
       <div className="my-5 h-px bg-[#E0D6C4]" />
 
       <h3 className="font-serif text-[22px] font-normal text-[#1F2A24] sm:text-[24px]">
         What might you need right now?
       </h3>
       <div
-        role="radiogroup"
+        role="group"
         aria-label="What might you need right now"
         className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5"
       >
-        {NEEDS.map((need) => {
-          const Icon = need.icon;
-          const active = selectedNeed === need.id;
+        {needs.map((need) => {
+          const Icon = getWheelIcon(need.icon);
+          const active = selectedNeedIds.includes(need.id);
           return (
             <button
               key={need.id}
               type="button"
-              role="radio"
+              role="checkbox"
               aria-checked={active}
-              onClick={() => onSelectNeed(need.id)}
+              onClick={() => onToggleNeed(need.id)}
               className={cn(
                 "flex h-22 flex-col cursor-pointer items-center justify-center gap-2.5 rounded-lg border transition-colors",
                 active
@@ -157,6 +161,8 @@ export function StepInsight({ heading, insight, selectedNeed, onSelectNeed, onNe
           );
         })}
       </div>
+      </>
+      )}
     </StepBody>
   );
 }
@@ -229,7 +235,7 @@ export function StepDeeperLayers({ layers, onNext }) {
 /* Step 06: Reflection ------------------------------------------------- */
 export const REFLECTION_MAX = 500;
 
-export function StepReflection({ value, onChange, onExploreAnother, onSave }) {
+export function StepReflection({ value, onChange, onExploreAnother, onSave, saving = false, error = "" }) {
   return (
     <StepBody
       footer={
@@ -238,9 +244,9 @@ export function StepReflection({ value, onChange, onExploreAnother, onSave }) {
             Explore Another Emotion
             <ArrowRight strokeWidth={1.75} />
           </SecondaryButton>
-          <PrimaryButton disabled={!value.trim()} onClick={onSave}>
+          <PrimaryButton disabled={!value.trim() || saving} onClick={onSave}>
             <Bookmark strokeWidth={1.75} />
-            Save Reflection
+            {saving ? "Saving..." : "Save Reflection"}
           </PrimaryButton>
         </>
       }
@@ -268,6 +274,11 @@ export function StepReflection({ value, onChange, onExploreAnother, onSave }) {
           {value.length}/{REFLECTION_MAX}
         </span>
       </div>
+      {error && (
+        <p role="alert" className="mt-2 text-[12px] text-red-700">
+          {error}
+        </p>
+      )}
     </StepBody>
   );
 }

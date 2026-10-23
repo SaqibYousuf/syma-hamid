@@ -24,7 +24,7 @@ export default function AssessmentHero() {
             <Container>
                 <div className="text-center">
                     <p className="mb-2 font-avenir text-[12px] font-medium leading-[1.2] tracking-[2px] text-center uppercase text-[#263d35] sm:text-[16px] sm:tracking-[2.5px] md:text-[22px] md:leading-[76.97px] md:tracking-[3px]">
-                        Assessments
+                        self reflection assestments
                     </p>
 
                     <h1 className="font-cormorant text-[32px] font-semibold leading-[1.05] tracking-normal text-center capitalize text-[#24372f] sm:text-[48px] md:text-[64px] lg:text-[80px] lg:leading-[84px]">

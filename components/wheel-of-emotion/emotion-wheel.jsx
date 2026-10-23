@@ -1,5 +1,6 @@
 import { Sparkle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getWheelIcon } from "./icons";
 
 const C = 100; // svg centre (viewBox 0 0 200 200)
 
@@ -57,7 +58,7 @@ export function EmotionWheel({ emotions, selectedId, onSelect, className }) {
         {/* icon + label overlay (click passes through to the wedge) */}
         {emotions.map((emotion, i) => {
           const [x, y] = polar(LABEL_R, i * sweep);
-          const Icon = emotion.icon;
+          const Icon = typeof emotion.icon === "string" ? getWheelIcon(emotion.icon) : emotion.icon;
           return (
             <div
               key={emotion.id}

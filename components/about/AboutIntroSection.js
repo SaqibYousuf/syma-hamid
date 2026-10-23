@@ -22,8 +22,8 @@ export default function AboutIntroSection() {
       </div>
 
       {/* Right 50% content, vertically centered */}
-      <div className="relative z-10 mx-auto flex min-h-150 w-full max-w-7xl items-center justify-end px-5 py-12 sm:min-h-162.5 sm:px-8 lg:min-h-175 lg:px-16 xl:px-20">
-        <div className="w-full px-4 text-white sm:px-0 lg:w-1/2">
+      <div className="relative z-10 mx-auto flex min-h-150 w-full max-w-8xl items-center justify-end px-5 py-12 sm:min-h-162.5 sm:px-8 lg:min-h-175 lg:px-12 xl:px-14">
+        <div className="w-full px-4 text-white sm:pr-0 sm:pl-10 lg:w-1/2 ">
           <h1 className="mb-5 font-cormorant text-3xl text-[#1c2e22] font-semibold leading-[1.05] capitalize sm:mb-6 sm:text-5xl lg:text-[80px] lg:leading-21">
             About Me
           </h1>

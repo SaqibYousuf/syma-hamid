@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { EW_IMAGES, NEEDS, getEmotion, getFeelingDetails } from "./data";
+import { EW_IMAGES, getEmotion, getFeelingDetails } from "./data";
 import {
   StepChooseEmotion,
   StepChooseFeeling,
@@ -22,6 +22,7 @@ import { ModalHeader } from "./ui";
 import Image from "next/image";
 
 export function EmotionalWheelModal({
+  wheel,
   open: openProp,
   onOpenChange,
   defaultOpen = false,
@@ -32,15 +33,26 @@ export function EmotionalWheelModal({
   const open = openProp ?? uncontrolledOpen;
   const [step, setStep] = React.useState(1);
   const [emotionId, setEmotionId] = React.useState(null);
-  const [feelingId, setFeelingId] = React.useState(null);
-  const [statement, setStatement] = React.useState(null);
-  const [needId, setNeedId] = React.useState(null);
+  // multi-select: arrays instead of single values
+  const [feelingIds, setFeelingIds] = React.useState([]);
+  const [statements, setStatements] = React.useState([]);
+  const [needIds, setNeedIds] = React.useState([]);
   const [reflection, setReflection] = React.useState("");
-  const emotion = getEmotion(emotionId);
-  const feeling = emotion?.feelings.find((f) => f.id === feelingId) ?? null;
+  const [saving, setSaving] = React.useState(false);
+  const [saveError, setSaveError] = React.useState("");
+  const emotions = wheel?.emotions ?? [];
+  const needs = wheel?.needs ?? [];
+  const emotion = getEmotion(emotions, emotionId);
+
+  // Use the first selected feeling for deeper-layer details (step 3–5)
+  const primaryFeelingId = feelingIds[0] ?? null;
+  const feeling = emotion?.feelings.find((f) => f.id === primaryFeelingId) ?? null;
   const details =
-    emotion && feeling ? getFeelingDetails(emotion, feeling) : null;
-  const need = NEEDS.find((n) => n.id === needId) ?? null;
+    emotion && feeling ? getFeelingDetails(emotion, feeling, wheel?.defaultStatements) : null;
+
+  // Build layers from primary feeling
+  const primaryNeedId = needIds[0] ?? null;
+  const need = needs.find((n) => n.id === primaryNeedId) ?? null;
   const layers =
     feeling && details
       ? [
@@ -50,61 +62,98 @@ export function EmotionalWheelModal({
           { title: "Core Need", value: need?.coreNeed ?? details.coreNeed },
         ]
       : [];
+
   const resetFlow = React.useCallback(() => {
     setStep(1);
     setEmotionId(null);
-    setFeelingId(null);
-    setStatement(null);
-    setNeedId(null);
+    setFeelingIds([]);
+    setStatements([]);
+    setNeedIds([]);
     setReflection("");
+    setSaveError("");
+    setSaving(false);
   }, []);
+
   const setOpen = (next) => {
     if (openProp === undefined) setUncontrolledOpen(next);
     onOpenChange?.(next);
     // wait for the close animation before resetting the content
     if (!next) window.setTimeout(resetFlow, 200);
   };
+
   const goBack = () => (step === 1 ? setOpen(false) : setStep((s) => s - 1));
+
   const selectEmotion = (id) => {
     if (id !== emotionId) {
-      setFeelingId(null);
-      setStatement(null);
-      setNeedId(null);
+      setFeelingIds([]);
+      setStatements([]);
+      setNeedIds([]);
     }
     setEmotionId(id);
     setStep(2);
   };
-  const selectFeeling = (id) => {
-    if (id !== feelingId) setStatement(null);
-    setFeelingId(id);
+
+  // Toggle helpers for multi-select
+  const toggleFeeling = (id) => {
+    setFeelingIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+    // reset downstream when changing feelings
+    setStatements([]);
+    setNeedIds([]);
   };
+
+  const toggleStatement = (s) => {
+    setStatements((prev) =>
+      prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]
+    );
+  };
+
+  const toggleNeed = (id) => {
+    setNeedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
+
   const exploreAnother = () => {
     setEmotionId(null);
-    setFeelingId(null);
-    setStatement(null);
-    setNeedId(null);
+    setFeelingIds([]);
+    setStatements([]);
+    setNeedIds([]);
     setReflection("");
     setStep(1);
   };
-  const save = () => {
-    if (!emotion || !feeling) return;
-    onSaveReflection?.({
-      emotion: emotion.id,
-      feeling: feeling.label,
-      statement,
-      need: needId,
-      layers,
-      reflection: reflection.trim(),
-      createdAt: new Date().toISOString(),
-    });
-    setOpen(false);
+
+  const save = async () => {
+    if (!emotion || feelingIds.length === 0 || saving) return;
+    setSaveError("");
+    setSaving(true);
+    try {
+      // onSaveReflection may return a promise; if it throws, keep the modal open and show the error
+      await onSaveReflection?.({
+        emotion: emotion.id,
+        emotionLabel: emotion.label,
+        feelings: feelingIds,
+        feelingLabels: feelingIds.map((id) => emotion.feelings.find((f) => f.id === id)?.label).filter(Boolean),
+        statements,
+        needs: needIds,
+        layers,
+        reflection: reflection.trim(),
+        createdAt: new Date().toISOString(),
+      });
+      setOpen(false);
+    } catch (e) {
+      setSaveError(e?.message || "Your reflection could not be saved. Please try again.");
+    } finally {
+      setSaving(false);
+    }
   };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      {trigger && <DialogTrigger nativeButton={false} render={trigger} />}
 
       <DialogContent
-        onOpenAutoFocus={(e) => e.preventDefault()}
         className={cn(
           // same fixed size for every step
           "flex h-[min(560px,calc(100dvh-2rem))] w-[calc(100vw-2rem)] max-w-220 flex-col gap-0 overflow-hidden rounded-2xl border border-[#E6DCCB] bg-[#F4EFE6] p-0 text-[#2B2F2A] shadow-2xl sm:max-w-[880px]",
@@ -146,6 +195,8 @@ export function EmotionalWheelModal({
         >
           {step === 1 && (
             <StepChooseEmotion
+              emotions={emotions}
+              quote={wheel?.quote}
               selectedId={emotionId}
               onSelect={selectEmotion}
             />
@@ -154,8 +205,8 @@ export function EmotionalWheelModal({
           {step === 2 && emotion && (
             <StepChooseFeeling
               emotion={emotion}
-              selectedId={feelingId}
-              onSelect={selectFeeling}
+              selectedIds={feelingIds}
+              onToggle={toggleFeeling}
               onNext={() => setStep(3)}
             />
           )}
@@ -164,8 +215,8 @@ export function EmotionalWheelModal({
             <StepChooseStatement
               feeling={feeling}
               statements={details.statements}
-              selected={statement}
-              onSelect={setStatement}
+              selected={statements}
+              onToggle={toggleStatement}
               onNext={() => setStep(4)}
             />
           )}
@@ -174,8 +225,9 @@ export function EmotionalWheelModal({
             <StepInsight
               heading={details.heading}
               insight={details.insight}
-              selectedNeed={needId}
-              onSelectNeed={setNeedId}
+              needs={needs}
+              selectedNeedIds={needIds}
+              onToggleNeed={toggleNeed}
               onNext={() => setStep(5)}
             />
           )}
@@ -190,6 +242,8 @@ export function EmotionalWheelModal({
               onChange={setReflection}
               onExploreAnother={exploreAnother}
               onSave={save}
+              saving={saving}
+              error={saveError}
             />
           )}
         </div>

@@ -30,7 +30,7 @@ function Experience() {
             </div>
           </div>
         </Container>
-        <div className="flex w-full items-center justify-center bg-[#F4ECD9] px-6 py-10 sm:px-[37px] lg:max-w-[300px] xl:max-w-[388px]">
+        {/* <div className="flex w-full items-center justify-center bg-[#F4ECD9] px-6 py-10 sm:px-[37px] lg:max-w-[300px] xl:max-w-[388px]">
           <p className="font-avenir text-base font-normal leading-[130%] text-[#1C2E22] sm:text-[18px] sm:leading-[120%]">
             <span className="font-medium">
               More than <br className="hidden lg:block" />
@@ -40,7 +40,7 @@ function Experience() {
             <br />
             This is not about fixing you. It’s about helping you understand yourself more deeply, so you can make different choices and create lasting change.
           </p>
-        </div>
+        </div> */}
       </div>
     </section>
   );

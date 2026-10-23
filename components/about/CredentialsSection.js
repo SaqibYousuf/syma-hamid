@@ -1,11 +1,11 @@
 "use client";
 
-import { GraduationCap, Award, ScrollText } from "lucide-react";
+import { GraduationCap, Award, ScrollText, Check } from "lucide-react";
 
 const qualifications = [
   { title: "Doctor of Psychology (PsyD)", subtitle: "California, USA" },
-  { title: "Post Graduate Diploma in Clinical Psychology", subtitle: "UK / Ireland" },
-  { title: "MSc Psychology", subtitle: "London" },
+  // { title: "Post Graduate Diploma in Clinical Psychology", subtitle: "UK / Ireland" },
+  // { title: "MSc Psychology", subtitle: "London" },
   { title: "Licensed Neuro-Linguistic Programming (NLP) Practitioner", subtitle: "Society of NLP, UK" },
 ];
 
@@ -22,74 +22,118 @@ const certifications = [
   "Certified Cognitive Behavioral Therapy (CBT) Life Coach",
 ];
 
-function CredentialCard({ icon: Icon, title, children }) {
+/* Group label with a rule that runs out to the edge of the column. */
+function GroupHeading({ icon: Icon, children }) {
   return (
-    <div className="flex flex-col rounded-3xl border border-[#E5DFD5] bg-[#FAF8F5] p-6 shadow-sm sm:p-8">
-      <div className="mb-6 flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EFE9DF] text-[#5A5144]">
-          <Icon className="h-5 w-5 stroke-[1.5]" />
-        </div>
-        <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6E6558]">
-          {title}
-        </h3>
-      </div>
-      {children}
+    <div className="mb-5 flex items-center gap-3">
+      <Icon
+        className="h-[18px] w-[18px] shrink-0 stroke-[1.5] text-[#2F5B51]"
+        aria-hidden="true"
+      />
+      <h3 className="text-sm font-medium text-[#2F5B51]">{children}</h3>
+      <span className="h-px flex-1 bg-[#CAD6D0]" aria-hidden="true" />
     </div>
   );
 }
 
-function CredentialItem({ title, subtitle, isLast }) {
+/* The one loud element on the page: qualifications on a deep pine panel. */
+function QualificationsPanel({ items }) {
   return (
-    <div className={isLast ? "" : "border-b border-[#E5DFD5]/60 pb-4"}>
-      <h4 className="font-serif text-base font-medium leading-snug text-[#1E1B18]">
-        {title}
-      </h4>
-      <p className="mt-0.5 text-xs font-light text-[#82786B]">{subtitle}</p>
+    <div className="relative overflow-hidden rounded-[28px] bg-[#1B3A34] px-6 py-8 sm:px-10 sm:py-10">
+      {/* Concentric rings, like a ripple. Purely decorative. */}
+      <svg
+        viewBox="0 0 320 320"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 text-[#A9C7BB] opacity-[0.14]"
+      >
+        <circle cx="160" cy="160" r="38" />
+        <circle cx="160" cy="160" r="78" />
+        <circle cx="160" cy="160" r="118" />
+        <circle cx="160" cy="160" r="158" />
+      </svg>
+
+      <ul className="relative divide-y divide-[#A9C7BB]/25">
+        {items.map((item) => (
+          <li key={item.title} className="py-6 first:pt-0 last:pb-0">
+            <h4 className="text-balance font-serif text-2xl leading-snug text-[#F1F5F2] sm:text-[1.75rem]">
+              {item.title}
+            </h4>
+            <p className="mt-2 text-sm text-[#A9C7BB]">{item.subtitle}</p>
+          </li>
+        ))}
+      </ul>
     </div>
+  );
+}
+
+function MembershipList({ items }) {
+  return (
+    <ul className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+      {items.map((item) => (
+        <li key={item.subtitle} className="border-l-2 border-[#8DB0A3] pl-4">
+          <p className="text-xs text-[#55695F]">{item.title}</p>
+          <p className="mt-1 font-serif text-lg leading-snug text-[#16302B]">
+            {item.subtitle}
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function CertificationList({ items }) {
+  return (
+    <ul className="grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="flex items-start gap-3 border-b border-[#CAD6D0] pb-4 text-[15px] leading-snug text-[#2B4139]"
+        >
+          <Check
+            className="mt-0.5 h-4 w-4 shrink-0 stroke-2 text-[#2F5B51]"
+            aria-hidden="true"
+          />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export default function CredentialsSection() {
   return (
-    <section className="w-full bg-[#FAF8F5]">
-      <div className="mx-auto w-full max-w-6xl px-5 py-12 sm:px-6 sm:py-16">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
-          <CredentialCard icon={GraduationCap} title="Qualifications">
-            <div className="space-y-5">
-              {qualifications.map((item, idx) => (
-                <CredentialItem
-                  key={item.title}
-                  {...item}
-                  isLast={idx === qualifications.length - 1}
-                />
-              ))}
-            </div>
-          </CredentialCard>
+    <section
+      aria-labelledby="credentials-heading"
+      className="w-full bg-[#EEF2EF]"
+    >
+      <div className="mx-auto w-full max-w-6xl px-5 py-16 sm:px-6 sm:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+          <h2
+            id="credentials-heading"
+            className="font-serif text-5xl leading-[1.05] tracking-tight text-[#16302B] sm:text-6xl lg:col-span-4 lg:sticky lg:top-24 lg:self-start"
+          >
+            Credentials
+          </h2>
 
-          <CredentialCard icon={Award} title="Professional Memberships">
-            <div className="space-y-6">
-              {memberships.map((item, idx) => (
-                <CredentialItem
-                  key={item.subtitle}
-                  {...item}
-                  isLast={idx === memberships.length - 1}
-                />
-              ))}
+          <div className="space-y-14 lg:col-span-8">
+            <div>
+              <GroupHeading icon={GraduationCap}>Qualifications</GroupHeading>
+              <QualificationsPanel items={qualifications} />
             </div>
-          </CredentialCard>
 
-          <CredentialCard icon={ScrollText} title="Certifications">
-            <div className="space-y-3.5">
-              {certifications.map((item) => (
-                <div key={item} className="flex items-start gap-2.5">
-                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#7C7263]" />
-                  <p className="text-xs font-light leading-snug text-[#4A443C] sm:text-sm">
-                    {item}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CredentialCard>
+            {/* <div>
+              <GroupHeading icon={Award}>Professional memberships</GroupHeading>
+              <MembershipList items={memberships} />
+            </div> */}
+
+            {/* <div>
+              <GroupHeading icon={ScrollText}>Certifications</GroupHeading>
+              <CertificationList items={certifications} />
+            </div> */}
+          </div>
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ import { BOOKING_HREF } from "../constants/site-links";
 
 function Hero() {
   return (
-    <section className="relative flex min-h-[620px] w-full items-center sm:min-h-[560px] lg:min-h-[520px] xl:min-h-[34.17vw]">
+    <section className="relative flex min-h-screen w-full items-center ">
       <Image
         src="/images/hero-bg.png"
         alt="Dr. Syma Hamid"
@@ -41,7 +41,7 @@ function Hero() {
         </Container>
       </div>
 
-      <div className="absolute right-[10%] hidden border-b border-[#D4A453] xl:block">
+      <div className="absolute right-[2%] hidden border-b border-[#D4A453] xl:block">
         <p className="font-cormorant text-[48px] font-medium italic leading-[55px] text-[#FAF6EF]">
           Real change <br />
           begins within

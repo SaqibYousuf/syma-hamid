@@ -17,9 +17,9 @@ export default function NoteFromDrSymaSection() {
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center">
-        <span className="mb-2 inline-block text-[#1C2E22] font-avenir text-[16px] font-medium uppercase  drop-shadow-sm">
+        {/* <span className="mb-2 inline-block text-[#1C2E22] font-avenir text-[16px] font-medium uppercase  drop-shadow-sm">
           A Note For You
-        </span>
+        </span> */}
         <h2 className="mb-4 font-cormorant text-2xl font-semibold leading-[1.05] capitalize text-[#1c2e22] sm:mb-6 sm:text-4xl lg:text-[64px] lg:leading-[1.15]">
           A NOTE FROM Dr. SYMA
         </h2>

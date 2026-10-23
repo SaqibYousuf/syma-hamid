@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 
 export default function AssessmentQuestion({
   question,
@@ -14,6 +14,8 @@ export default function AssessmentQuestion({
   onPrevious,
   onNext,
   isLast,
+  submitting,
+  submitError,
 }) {
   if (!question) return null;
 
@@ -109,25 +111,39 @@ export default function AssessmentQuestion({
         )}
 
         {/* Navigation buttons */}
-        <div className="mt-6 flex items-center justify-between gap-3 sm:mt-8">
-          <Button
-            type="button"
-            onClick={onPrevious}
-            className="min-h-11 cursor-pointer border-none bg-transparent px-4 font-avenir text-sm text-[#1C2E22] transition-colors hover:bg-[#1C2E22]/5 sm:px-6"
-          >
-            <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
-            Previous
-          </Button>
+        <div className="mt-6 flex flex-col gap-3 sm:mt-8">
+          {submitError && isLast && (
+            <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 font-avenir text-sm text-red-800">
+              {submitError}
+            </p>
+          )}
+          <div className="flex items-center justify-between gap-3">
+            <Button
+              type="button"
+              onClick={onPrevious}
+              disabled={submitting}
+              className="min-h-11 cursor-pointer border-none bg-transparent px-4 font-avenir text-sm text-[#1C2E22] transition-colors hover:bg-[#1C2E22]/5 sm:px-6"
+            >
+              <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
+              Previous
+            </Button>
 
-          <Button
-            type="button"
-            onClick={onNext}
-            disabled={!canContinue}
-            className="h-[54px] min-w-[130px] cursor-pointer rounded-[9px] bg-[#1C2E22] px-5 font-avenir text-sm font-medium text-white transition-opacity hover:bg-[#1C2E22] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {isLast ? "Finish" : "Next"}
-            <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
-          </Button>
+            <Button
+              type="button"
+              onClick={onNext}
+              disabled={!canContinue || submitting}
+              className="h-[54px] min-w-[130px] cursor-pointer rounded-[9px] bg-[#1C2E22] px-5 font-avenir text-sm font-medium text-white transition-opacity hover:bg-[#1C2E22] hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {submitting && isLast ? (
+                <Loader2 className="h-4 w-4 shrink-0 animate-spin" aria-hidden="true" />
+              ) : (
+                <>
+                  {isLast ? "Finish" : "Next"}
+                  <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
     </section>

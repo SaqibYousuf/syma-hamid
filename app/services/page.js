@@ -14,7 +14,7 @@ export default function ServicesPage() {
       <TherapyCounsellingSection />
       <TherapeuticApproaches />
       <InnerAlchemyBanner />
-      <AppointmentCTA />
+      {/* <AppointmentCTA /> */}
     </main>
   );
 }

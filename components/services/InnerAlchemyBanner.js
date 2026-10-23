@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function InnerAlchemyBanner() {
   return (
@@ -22,7 +23,7 @@ export default function InnerAlchemyBanner() {
         {/* Content */}
         <div className="relative z-10 mx-auto max-w-3xl">
           <span className="block font-avenir text-xs font-medium uppercase tracking-[0.2em] text-[#D6CEBF]">
-            Also Available
+             Now Introducing
           </span>
 
           <h2 className="font-cormorant text-3xl font-semibold text-[#F3EFEA] sm:text-4xl lg:text-5xl">
@@ -36,13 +37,15 @@ export default function InnerAlchemyBanner() {
 
         {/* Button below the text */}
         <div className="relative z-10 w-full sm:w-auto">
+          <Link href="/inner-alchemy">
           <Button
             type="button"
             className="cursor-pointer rounded-[12px] bg-white hover:bg-white px-8 py-6 font-avenir text-sm font-medium text-[#1C2E22]"
-          >
+            >
             <span>Explore Inner-Alchemy</span>
             <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
           </Button>
+            </Link>
         </div>
       </div>
     </section>

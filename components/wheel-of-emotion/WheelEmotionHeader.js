@@ -1,9 +1,32 @@
 "use client"
+import { useState } from "react";
 import Image from "next/image";
 import Container from "../constants/container";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { EmotionalWheelModal } from "@/components/wheel-of-emotion/emotional-wheel-modal";
-function WheelEmotionHeader() {
+/** Saves a reflection through the API. Throws so the modal can show the error. */
+async function saveReflection(r) {
+  const res = await fetch("/api/wheel/reflections", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      emotion: r.emotion,
+      feeling: Array.isArray(r.feelings) ? r.feelings[0] : r.feeling,
+      statement: Array.isArray(r.statements) ? r.statements[0] : r.statement,
+      need: Array.isArray(r.needs) ? r.needs[0] : r.need,
+      reflection: r.reflection,
+    }),
+  });
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({}));
+    throw new Error(json.error || "Your reflection could not be saved. Please try again.");
+  }
+}
+
+function WheelEmotionHeader({ wheel = null }) {
+  const [saved, setSaved] = useState(false);
+  const available = Boolean(wheel?.emotions?.length);
+
   return (
     <section className="relative flex min-h-155 w-full items-center sm:min-h-140 lg:min-h-130 xl:min-h-[34.17vw]">
       <Image
@@ -34,14 +57,29 @@ function WheelEmotionHeader() {
             >
               Begin your journey <ArrowRight />
             </Button> */}
-            <EmotionalWheelModal
-              trigger={<div
-                className="flex cursor-pointer rounded-[14.51px] bg-[#223329] px-8 py-4 font-avenir text-sm font-medium text-white"
-              >
-                Begin your journey <ArrowRight />
-              </div>}
-              onSaveReflection={(r) => console.log(r)}
-            />
+            {available ? (
+              <EmotionalWheelModal
+                wheel={wheel}
+                trigger={<div
+                  className="flex cursor-pointer gap-2 rounded-[14.51px] bg-[#223329] px-8 py-4 font-avenir text-sm font-medium text-white"
+                >
+                  Explore <ArrowRight />
+                </div>}
+                onSaveReflection={async (r) => {
+                  await saveReflection(r);
+                  setSaved(true);
+                }}
+              />
+            ) : (
+              <p className="rounded-xl bg-white/70 px-4 py-3 font-avenir text-sm text-[#1C2E22]">
+                The Wheel of Emotions is being updated. Please check back soon.
+              </p>
+            )}
+            {saved && (
+              <p role="status" className="flex items-center gap-2 rounded-xl bg-white/80 px-4 py-2.5 font-avenir text-sm text-[#1C2E22]">
+                <CheckCircle2 className="h-4 w-4 text-[#A67539]" /> Your reflection has been saved. Thank you for taking a moment for yourself.
+              </p>
+            )}
           </div>
         </Container>
       </div>
