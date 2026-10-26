@@ -5,7 +5,7 @@ import NoteFromDrSymaSection from "@/components/about/NoteFromDrSymaSection";
 
 export const metadata = {
   title: "About",
-  description: "Meet Dr. Syma Hamid — psychologist and NLP expert.",
+  description: "Meet Dr. Syma Hamid — psychologist and cognitive reframe expert.",
 };
 
 export default function AboutMePage() {
