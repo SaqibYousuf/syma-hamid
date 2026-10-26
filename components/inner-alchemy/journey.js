@@ -5,10 +5,10 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const pillars = [
-  { image: "/images/assesment.png", icon: "/images/rootlock.svg", title: "identify the root block", text: "Uncover what’s truly holding you back." },
-  { image: "/images/emotions.png", icon: "/images/lotus.svg", title: "get unstuck", text: "Break patterns of self-doubt, perfectionism and self-sabotage." },
-  { image: "/images/sessions.png", icon: "/images/wind.svg", title: "cognitive restructuring", text: "Shift persistent negative thoughts and doubts." },
-  { image: "/images/sessions.png", icon: "/images/flow.svg", title: "Reconnect with your inner flow", text: "Build emotional resilience and move forward with greater ease and purpose." },
+  { image: "/images/root.png", icon: "/images/rootlock.svg", title: "identify the root block", text: "Uncover what’s truly holding you back." },
+  { image: "/images/unstuck.png", icon: "/images/lotus.svg", title: "get unstuck", text: "Break patterns of self-doubt, perfectionism and self-sabotage." },
+  { image: "/images/restructuring.png", icon: "/images/wind.svg", title: "cognitive restructuring", text: "Shift persistent negative thoughts and doubts." },
+  { image: "/images/flow.png", icon: "/images/flow.svg", title: "Reconnect with your inner flow", text: "Build emotional resilience and move forward with greater ease and purpose." },
 ];
 
 function Journey() {
@@ -16,18 +16,17 @@ function Journey() {
     <section className="bg-[#FFF6E2] lg:py-20">
       <Container>
         <div>
-          <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-end lg:gap-10">
+          <div className="flex w-full justify-center gap-4  lg:gap-10">
             <div className="lg:w-[50%]">
-              <p className="font-avenir text-sm font-medium uppercase leading-[1.4] tracking-[2px] text-[#1C2E22] sm:text-lg sm:tracking-[3px] xl:text-[22px] xl:leading-[76.97px]">The journey</p>
-              <h2 className="mt-3 font-cormorant text-[40px] font-semibold capitalize leading-[1.05] text-[#1C2E22] sm:text-[52px] xl:mt-0 xl:text-[66px] xl:leading-[84px]">
+              <p className="font-avenir text-center text-sm font-medium uppercase leading-[1.4] tracking-[2px] text-[#1C2E22] sm:text-lg sm:tracking-[3px] xl:text-[22px] xl:leading-[76.97px]">The journey</p>
+              <h2 className="mt-3 font-cormorant text-center text-[40px] font-semibold capitalize leading-[1.05] text-[#1C2E22] sm:text-[52px] xl:mt-0 xl:text-[66px] xl:leading-[84px]">
                 what we’ll work on
               </h2>
-            </div>
-            <div className="flex-1">
-              <p className="font-avenir text-base font-normal leading-[130%] text-[#1C2E22] sm:text-xl xl:text-[22px] xl:leading-[120%]">
+                <p className="font-avenir text-base text-center font-normal leading-[130%] text-[#1C2E22] sm:text-xl xl:text-[22px] xl:leading-[120%]">
                 These four pillars guide our work together, helping you move from insight to lasting change.
               </p>
             </div>
+            
           </div>
 
           <div className="mt-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 xl:mt-20 xl:grid-cols-4 xl:gap-[28px]">

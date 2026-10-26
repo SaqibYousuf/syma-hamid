@@ -4,9 +4,9 @@ import { GraduationCap, Award, ScrollText, Check } from "lucide-react";
 
 const qualifications = [
   { title: "Doctor of Psychology (PsyD)", subtitle: "California, USA" },
-  // { title: "Post Graduate Diploma in Clinical Psychology", subtitle: "UK / Ireland" },
-  // { title: "MSc Psychology", subtitle: "London" },
-  { title: "Licensed Neuro-Linguistic Programming (NLP) Practitioner", subtitle: "Society of NLP, UK" },
+  { title: "Post Graduate Diploma in Clinical Psychology", subtitle: "IHMS, Pakistan" },
+  { title: "MSc Psychology", subtitle: "Pakistan" },
+  { title: "Licensed Neuro-Linguistic Programming (NLP) Practitioner", subtitle: "UK" },
 ];
 
 const memberships = [
