@@ -83,6 +83,6 @@ export const faqs = [
 
 // Sample paths: replace with your real images
 export const FAQ_IMAGES = {
-  side: "/images/faq/faq-interior.jpg", // tall photo on the left (portrait works best)
-  cta: "/images/faq/faq-landscape.jpg", // soft landscape behind the bottom call to action
+  side: "/images/faq/left_side_image.png", // tall photo on the left (portrait works best)
+  cta: "/images/faq/Minimalist_Astrological_Parchment_Background.png", // soft landscape behind the bottom call to action
 };

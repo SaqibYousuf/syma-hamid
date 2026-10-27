@@ -39,15 +39,11 @@ export default function FaqCta({ href = "/contact" }) {
         alt=""
         fill
         sizes="100vw"
-        className="object-cover object-bottom opacity-50 mix-blend-multiply"
+        className="object-cover mix-blend-multiply"
       />
-      {/* keeps the text readable over the photo */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#F7F3EC] via-[#F7F3EC]/80 to-transparent" />
-
-      <Constellation className="pointer-events-none absolute -right-4 top-4 hidden w-56 md:block" />
 
       <div className="relative mx-auto flex max-w-7xl flex-col gap-6 px-5 py-14 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-16 lg:py-16">
-        <div>
+        <div className="pl-10">
           <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#223329]/80">
             Still have a question?
           </p>

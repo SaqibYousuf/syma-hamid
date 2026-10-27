@@ -8,6 +8,7 @@ export const NAV_LINKS = [
   { name: "Wheel of Emotions", href: "/wheel-of-emotions" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
+  { name: "FAQ", href: "/faq" },
 ];
 
 export const BOOKING_HREF = "/contact";
