@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import WheelEmotionHeader from "@/components/wheel-of-emotion/WheelEmotionHeader";
+import { EmotionalWheelSection } from "@/components/wheel-of-emotion/emotional-wheel-section";
 import { getWheelData } from "@/lib/wheel";
 
 export const metadata = { title: "Wheel of Emotions", description: "Find words for what you’re feeling." };
@@ -17,6 +18,7 @@ export default async function WheelOfEmotionsPage() {
   return (
     <div>
       <WheelEmotionHeader wheel={wheel} />
+      <EmotionalWheelSection wheel={wheel} />
     </div>
   );
 }
