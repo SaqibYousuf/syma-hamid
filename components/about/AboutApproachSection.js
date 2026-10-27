@@ -16,7 +16,7 @@ export default function AboutApproachSection() {
         />
 
         {/* Overlay for text readability */}
-       
+
       </div>
 
       {/* Left-aligned text */}
@@ -28,17 +28,16 @@ export default function AboutApproachSection() {
 
           <div className="space-y-4 text-sm font-light leading-relaxed text-[#1c2e22] sm:text-base sm:leading-7 lg:text-lg">
             <p className="font-avenir text-[20px] font-medium leading-9 tracking-normal text-[#1c2e22]">
-              My orientation is primarily cognitive-based, which means my sessions are
-              conversational, pragmatic and focused on the present.
+              My orientation is primarily cognitive-based, which means my sessions are conversational,
+              pragmatic and focused on the present.
             </p>
 
             <p className="font-avenir text-[#1c2e22] text-[18px] font-normal">
-              Together, we explore the patterns, beliefs and interpretations that may be
-              shaping your experience. During the assessment process, we establish clear
-              therapeutic goals and collaboratively identify approaches that are meaningful
-              and practical for you. My intention is not simply to help you understand what
-              is happening, but to help you develop the insight and perspective needed to
-              respond differently.
+              Together, we explore the patterns, beliefs and interpretations that may be shaping your
+              experience. During the assessment process, we establish clear therapeutic goals and
+              collaboratively identify approaches that are meaningful and practical for you. My intention is
+              not simply to help you understand what is happening, but to help you develop the insight and
+              perspective needed to respond differently.
             </p>
           </div>
         </div>

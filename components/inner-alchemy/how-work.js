@@ -23,7 +23,7 @@ function HowWork() {
           <div className="flex w-full justify-end">
             <div className="flex w-full flex-col justify-start gap-10 xl:w-[68%] lg:gap-12">
               <div>
-                <p className="font-avenir text-sm font-medium uppercase tracking-[2px] text-[#FAF6EF] sm:text-lg sm:tracking-[3px] xl:text-[22px]">the 60-minute experience</p>
+                <p className="font-avenir text-sm font-medium uppercase tracking-[2px] text-[#FAF6EF] sm:text-lg sm:tracking-[3px] xl:text-[22px]">the each 60 minutes experience</p>
                 <h2 className="mt-2 font-cormorant text-[40px] font-semibold capitalize leading-[1.05] text-[#FAF6EF] sm:text-[52px] xl:text-[66px] xl:leading-[84px]">How it works</h2>
               </div>
               <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 xl:grid-cols-5 xl:gap-x-2">

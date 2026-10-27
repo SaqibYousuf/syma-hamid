@@ -7,7 +7,7 @@ import { BOOKING_HREF } from "../constants/site-links";
 
 function Hero() {
   return (
-    <section className="relative flex min-h-[620px] w-full items-center sm:min-h-[560px] lg:min-h-[520px] xl:min-h-[34.17vw]">
+    <section className="relative flex min-h-screen w-full items-center ">
       <Image
         src="/images/hero-bg.png"
         alt="Dr. Syma Hamid"
@@ -26,22 +26,22 @@ function Hero() {
               Deeper insight. Lasting change
             </p>
             <h1 className="font-cormorant text-[48px] font-semibold capitalize leading-[0.95] text-[#1C2E22] sm:text-[64px] lg:text-[72px] xl:text-[94px] xl:leading-[84px]">
-              heal what’s holding you back
+              Real change <br/>begins within
             </h1>
             <p className="font-avenir text-base font-normal leading-[1.55] text-[#1C2E22] sm:text-xl xl:text-[25px] xl:leading-[36px]">
-              Psychological support, powerful tools and a compassionate space to help you understand yourself, break unhelpful patterns and create a more fulfilling life.
+              Gravitate towards authenticity, transform what no longer serves you
             </p>
             <Link
               href={BOOKING_HREF}
               className="flex items-center justify-center gap-[10px] rounded-2xl bg-[#223329] px-6 py-3 font-cormorant text-lg font-semibold leading-[32px] text-white transition-colors hover:bg-[#1C2E22]"
             >
-              Begin your journey <ArrowRight />
+             Begin your journey <ArrowRight />
             </Link>
           </div>
         </Container>
       </div>
 
-      <div className="absolute right-[10%] hidden border-b border-[#D4A453] xl:block">
+      <div className="absolute right-[2%] hidden border-b border-[#D4A453] xl:block">
         <p className="font-cormorant text-[48px] font-medium italic leading-[55px] text-[#FAF6EF]">
           Real change <br />
           begins within

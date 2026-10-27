@@ -29,7 +29,7 @@ export default function AssessmentGrid({ assessments = [], loadError = false, in
     <section className="bg-[#f5efe2] py-7 sm:py-8 md:py-9">
       <Container>
         <h2 className="mb-5 text-center text-[9px] font-medium uppercase tracking-[0.18em] text-[#303c33] sm:mb-6 sm:text-[10px]">
-          Choose an assessment
+          self reflections
         </h2>
 
         {loadError ? (
@@ -39,7 +39,7 @@ export default function AssessmentGrid({ assessments = [], loadError = false, in
         ) : assessments.length === 0 ? (
           <p className="mx-auto max-w-md text-center font-avenir text-base text-[#465149]">New assessments are coming soon.</p>
         ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-2.5">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 lg:gap-2.5">
             {assessments.map((assessment, index) => (
               <AssessmentCard
                 key={assessment.id}

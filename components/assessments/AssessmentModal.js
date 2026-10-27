@@ -5,14 +5,13 @@ import { Loader2, X } from "lucide-react";
 import { Dialog, DialogClose, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import AssessmentIntro from "@/components/assessments/AssessmentIntro";
 import AssessmentQuestion from "@/components/assessments/AssessmentQuestion";
-import AssessmentDetailsForm from "@/components/assessments/AssessmentDetailsForm";
 import PatternProfilesView from "@/components/assessments/AssessmentPatternProfile";
 import PatternResultView from "@/components/assessments/AssessmentPatternResultView";
 import PatternIdentityView from "@/components/assessments/AssessmentPatternIdentityView";
 
 /**
  * Screens:
- *   loading → intro → question (1..n) → details (name + email) → result
+ *   loading → intro → question (1..n) → result
  *   result → closing ("pattern is not your identity") → profiles → profile
  */
 export default function AssessmentModal({ open, onOpenChange, assessment }) {
@@ -21,7 +20,6 @@ export default function AssessmentModal({ open, onOpenChange, assessment }) {
   const [loadError, setLoadError] = useState("");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({}); // { [questionId]: { optionId } | { text } }
-  const [details, setDetails] = useState({ name: "", email: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [result, setResult] = useState(null); // response from submit
@@ -89,7 +87,7 @@ export default function AssessmentModal({ open, onOpenChange, assessment }) {
   function handleNext() {
     if (!isAnswered(current)) return;
     if (questionIndex < questions.length - 1) setQuestionIndex((i) => i + 1);
-    else setScreen("details");
+    else handleCalculate();
   }
 
   function handlePrevious() {
@@ -97,17 +95,14 @@ export default function AssessmentModal({ open, onOpenChange, assessment }) {
     else setQuestionIndex((i) => i - 1);
   }
 
-  async function handleSubmit(values) {
-    setDetails(values);
+  async function handleCalculate() {
     setSubmitError("");
     setSubmitting(true);
     try {
-      const res = await fetch(`/api/assessments/${data.id}/submit`, {
+      const res = await fetch(`/api/assessments/${data.id}/calculate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: values.name,
-          email: values.email,
           answers: questions.map((q) => ({ questionId: q.id, ...answers[q.id] })),
         }),
       });
@@ -153,16 +148,8 @@ export default function AssessmentModal({ open, onOpenChange, assessment }) {
         onPrevious={handlePrevious}
         onNext={handleNext}
         isLast={questionIndex === questions.length - 1}
-      />
-    );
-  } else if (screen === "details") {
-    content = (
-      <AssessmentDetailsForm
-        initial={details}
         submitting={submitting}
-        error={submitError}
-        onBack={() => setScreen("question")}
-        onSubmit={handleSubmit}
+        submitError={submitError}
       />
     );
   } else if (screen === "result" && result?.result) {
@@ -170,7 +157,7 @@ export default function AssessmentModal({ open, onOpenChange, assessment }) {
       <PatternResultView
         profile={result.result}
         isOwn
-        onBack={() => setScreen("details")}
+        onBack={() => setScreen("question")}
         onNext={() => setScreen(hasClosing ? "closing" : "profiles")}
         nextLabel={hasClosing ? "Explore Deeper Insights" : "See the other profiles"}
         showNext={hasClosing || otherProfiles.length > 0}
@@ -181,7 +168,7 @@ export default function AssessmentModal({ open, onOpenChange, assessment }) {
     content = (
       <PatternIdentityView
         closing={{ title: "Thank you for reflecting.", text: "Your answers have been received.", reflection: result?.closing?.reflection }}
-        onBack={() => setScreen("details")}
+        onBack={() => setScreen("question")}
       />
     );
   } else if (screen === "closing") {
@@ -225,7 +212,7 @@ export default function AssessmentModal({ open, onOpenChange, assessment }) {
           {content}
         </div>
         {/* Always-available close button (some screens have their own too) */}
-        {(screen === "question" || screen === "details") && (
+        {(screen === "question") && (
           <DialogClose
             className="absolute right-3 top-3 z-20 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-[#1C2E22] transition-colors hover:bg-[#1C2E22]/10 sm:right-5 sm:top-5"
             aria-label="Close"

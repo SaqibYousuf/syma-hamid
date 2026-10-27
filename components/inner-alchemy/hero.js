@@ -25,8 +25,8 @@ function Hero() {
           <div className={goldLine} />
         </div>
         <p className="font-avenir text-base font-normal leading-[1.55] text-[#1C2E22] sm:text-xl xl:text-[25px] xl:leading-[36px]">
-          Psychological support, powerful tools and a compassionate space to help you understand yourself, break unhelpful patterns and create a more fulfilling life.
-        </p>
+          A guided 60-minute deep-dive designed to help you understand the patterns beneath what you're experiencing, reframe limiting narratives, and move forward with greater clarity.
+          </p>
         <Link
           href={BOOKING_HREF}
           className="flex items-center justify-center gap-[10px] rounded-2xl bg-[#223329] px-6 py-3 font-cormorant text-lg font-semibold capitalize leading-[32px] text-white transition-colors hover:bg-[#1C2E22]"

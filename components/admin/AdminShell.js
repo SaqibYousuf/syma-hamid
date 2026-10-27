@@ -4,14 +4,28 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ClipboardList, ExternalLink, LayoutDashboard, LogOut, Menu, Users, X } from "lucide-react";
+import { ClipboardList, ExternalLink, LayoutDashboard, LogOut, Menu, ShoppingCart, Users, X, BookOpen, Palette, NotebookPen } from "lucide-react";
 import { cx } from "./ui";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/assessments", label: "Assessments", icon: ClipboardList },
   { href: "/admin/results", label: "Results", icon: Users },
+  { href: "/admin/workshops", label: "Workshops", icon: BookOpen },
+  { href: "/admin/orders", label: "Workshop Orders", icon: ShoppingCart },
+  { href: "/admin/wheel", label: "Wheel of Emotions", icon: Palette },
+  { href: "/admin/wheel/reflections", label: "Reflections", icon: NotebookPen },
 ];
+
+/** The most specific menu item that matches the current page */
+function activeHref(pathname) {
+  let best = null;
+  for (const item of nav) {
+    const match = item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
+    if (match && (!best || item.href.length > best.length)) best = item.href;
+  }
+  return best;
+}
 
 export default function AdminShell({ username, children }) {
   const pathname = usePathname();
@@ -37,8 +51,8 @@ export default function AdminShell({ username, children }) {
         </button>
       </div>
       <nav className="flex-1 space-y-1 px-3 py-4">
-        {nav.map(({ href, label, icon: Icon, exact }) => {
-          const active = exact ? pathname === href : pathname.startsWith(href);
+        {nav.map(({ href, label, icon: Icon }) => {
+          const active = activeHref(pathname) === href;
           return (
             <Link
               key={href}

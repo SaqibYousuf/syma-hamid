@@ -16,9 +16,9 @@ export default function ServicesHero() {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-24 sm:px-8 sm:py-28 lg:px-16">
         <div className="max-w-2xl">
-          <span className="block font-avenir text-xs font-medium uppercase tracking-[0.25em] text-[#1C2E22] sm:text-sm">
+          {/* <span className="block font-avenir text-xs font-medium uppercase tracking-[0.25em] text-[#1C2E22] sm:text-sm">
             Services
-          </span>
+          </span> */}
 
           <h1 className="font-cormorant text-5xl font-semibold text-[#1C2E22] sm:text-6xl lg:text-[76px] \">
             Ways we can
