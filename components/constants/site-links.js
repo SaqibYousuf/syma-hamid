@@ -7,7 +7,7 @@ export const NAV_LINKS = [
   { name: "Workshops", href: "/workshops" },
   { name: "Assessments", href: "/assessments" },
   { name: "Wheel of Emotions", href: "/wheel-of-emotions" },
-  { name: "Blog", href: "/blog" },
+  { name: "The Inner Library", href: "/inner-library" },
   { name: "Contact", href: "/contact" },
   { name: "FAQ", href: "/faq" },
 ];
