@@ -40,13 +40,13 @@ function Hero() {
           </div>
         </Container>
       </div>
-
+{/* 
       <div className="absolute right-[2%] hidden border-b border-[#D4A453] xl:block">
         <p className="font-cormorant text-[48px] font-medium italic leading-[55px] text-[#FAF6EF]">
           Real change <br />
           begins within
         </p>
-      </div>
+      </div> */}
     </section>
   );
 }

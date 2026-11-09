@@ -25,7 +25,7 @@ export function EmotionWheel({ emotions, selectedId, onSelect, className }) {
   return (
     <div
       className={cn(
-        "relative aspect-square w-[min(290px,72vw)] rounded-full bg-[#F8F4EC] p-[5px] shadow-[0_14px_36px_-14px_rgba(70,52,24,0.45)]",
+        "relative aspect-square w-[min(340px,72vw)] rounded-full bg-[#F8F4EC] p-[5px] shadow-[0_14px_36px_-14px_rgba(70,52,24,0.45)]",
         className,
       )}
     >

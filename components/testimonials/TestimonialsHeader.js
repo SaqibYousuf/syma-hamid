@@ -14,7 +14,7 @@ export default function TestimonialsHeader() {
       <div className="max-w-md border-t border-[#A67539]/40 pt-3 md:border-t-0 md:pt-0">
         <div className="mb-3 h-0 w-16.5 border-t-2 border-[#A67539]" />
 
-        <p className="font-avenir text-xs font-light leading-relaxed text-[#1C2E22]/85 sm:text-sm">
+        <p className="font-avenir text-xs font-bold leading-relaxed text-[#1C2E22]/85 sm:text-sm">
           A few reflections from people who have chosen to work on themselves,
           understand their patterns and create a different way forward.
         </p>

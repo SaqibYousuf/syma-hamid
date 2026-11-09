@@ -13,10 +13,10 @@ function WheelEmotionHeader({ wheel = null }) {
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className="object-cover scale-x-[-1]"
       />
       {/* Keeps text readable on smaller screens where the photo sits behind it */}
-      <div className="absolute inset-0 bg-linear-to-r from-[#FBF8F3]/95 via-[#FBF8F3]/80 to-[#FBF8F3]/10 lg:hidden" />
+      <div className="absolute inset-0 bg-linear-to-r from-[#FBF8F3]/95 via-[#FBF8F3]/80 to-[#FBF8F3]/10 opacity-50" />
 
       <div className="relative w-full">
         <Container className="py-12 lg:py-16 xl:py-20">
